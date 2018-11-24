@@ -60,7 +60,7 @@
 `use-pacakge` 내의 `bind` 설정을 통해 아래와 같이 단축키를 지정할 수
 있다.
 
-```
+```lisp
 (use-package fixed-font
   :load-path "~/.emacs.d/site-lisp/fixed-font"
   :bind
