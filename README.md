@@ -17,8 +17,18 @@
 ```
 
 이 패키지는 Eamcs에서 영문과 한글 글꼴을 같은 고정폭으로 사용할 수
-있도록 한다. 한글 글꼴을 D2Coding 을 기본으로 하고 영문은 다음과 같은
-글꼴을 테스트하였다.
+있도록 한다. 한글 글꼴은
+[D2Coding](https://github.com/naver/d2codingfont) 을 기본으로 하고
+영문은 다음과 같은 글꼴을 테스트하였다.
+
+- [Envy Code R](https://damieng.com/blog/2008/05/26/envy-code-r-preview-7-coding-font-released)
+- [DejaVu Sans Mono](https://dejavu-fonts.github.io/)
+- [Droid Sans Mono](https://www.droidfonts.com/info/droid-sans-mono-fonts/)
+- [Fira Mono](https://mozilla.github.io/Fira/)
+- [Hack](https://sourcefoundry.org/hack/)
+- Menlo
+- Monaco
+- [Source Code Pro](https://github.com/adobe-fonts/source-code-pro)
 
 ## 설치
 
