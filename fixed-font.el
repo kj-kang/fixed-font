@@ -18,6 +18,18 @@
 ;;;
 ;;; 이 패키지는 한글 1글자의 폭과 영문 2글자의 폭을 맞출 수 있도록 도와준다.
 ;;;
+;;; (use-pacakge fixed-font
+;;;   :load-path "~/path/to/fixed-font"
+;;;   :bind
+;;;   ("C-0" . fixed-font-default))
+;;;   ("C-=" . fixed-font-increase))
+;;;   ("C--" . fixed-font-decrease)
+;;;   :init
+;;;   (setq fixed-font-ascii-font "Source Code Pro")
+;;;   (setq fixed-font-hangul-font "NanumGothicCoding")
+;;;   (setq fixed-font-default-height 100)
+;;;   (fixed-font-default))
+;;;
 
 
 (defcustom fixed-font-ascii-font "Source Code Pro"
