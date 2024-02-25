@@ -1,69 +1,76 @@
-;;; fixed-font -- 한글과 영문 글꼴의 고정폭 비율 설정
-;;;
+;;; fixed-font.el --- 한글 고정폭 글꼴 설정 -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2023-2024 Inforgra
+
+;; Author: Kukjin Kang <kj.kang@daum.net>
+;; Keywords: font
+;; Version: 0.0.1
+
 ;;; Commentary:
-;;;
-;;;   글꼴은 글자폭의 형태에 따라 가변폭과 고정폭으로 구분한다.  가변폭의
-;;; 경우 글자에 따라 폭(width)이 달라질 수 있다.  예를 들어 "W"와 "I"의
-;;; 가로폭(width)이 다르며, 고정폭은 항상 같다.
-;;;
-;;;   가독성과 정확성을 요구하는 코딩의 글꼴은 고정폭을 사용하는 것이 좋다.
-;;; 책이나 게시물을 읽기에는 고정폭 보다 가변폭 글꼴이 좋다고 알려져 있다.
-;;; 그러나 가변폭 글꼴의 경우 'o', 'O', '0' 또는  '1', 'i', 'l', 'L' 등의
-;;; 구분이 어려워 오타가 발생하기 쉽다.
-;;;
-;;;   고정폭 영문 글꼴은 'monaco', 'source code pro', casadia code',
-;;;  'inconsolata', 'fira code' 등 다양한 글꼴을 선택하여 사용할 수 있다.
-;;; 반면에 한글 글꼴은 '나눔고딕코딩, 'D2Coding' 정도로 선태지가 매우
-;;; 좁다.
-;;;;
-;;;   한글 글꼴을 사용할 때 영문 글꼴을 다른 것으로 대체 할 수 있다면,
-;;; 개인의 취향에 맞는 다양한 조합을 사용할 수 있다.  이 패키지는 한글과
-;;; 영문 글꼴을 각각 선택하여 사용할 수 있도록 한다.
-;;;
-;;; (setq fixed-font-hangul-font "NanumGothicCode") ;; 한글 글꼴 설정
-;;; (setq fixed-font-ascii-font "Ubuntu Mono")      ;; 영문 글꼴 설정
-;;;
-;;;   같은 고정폭 글꼴이라 하더다라고 글꼴마다 고정폭의 기준이 다르다.
-;;; 한글과 영문 글꼴을 조합할 경우, 한글 한글자에 영문 두글자가 나오지 않는
-;;; 경우가 빈번하다.  이 경우에는 글꼴의 비율(scale)을 조정해 줄 필요가 있다.
-;;; 글꼴의 크기에 따라 비율이 다를 수 있기 때문에 각각 지정해야 한다.
-;;;
-;;; (add-to-list 'fixed-font-rescale-list
-;;;   (("NanumGothicCoding" . "Ubuntu Mono")
-;;;    ((70  . 1.20)         ;; 글꼴의 크기가 70일때 비율은 1.20
-;;;     (80  . 1.30)
-;;;     (90  . 1.25)
-;;;     (100 . 1.20))))
-;;;
-;;;   아래와 같은 표를 하나 만들어 보면, 각 글꼴의 비율이 맞는지 틀린지
-;;; 보다 쉽게 확인 할 수 있다.
-;;;
-;;; | 한글 | 테스트 |
-;;; | ABCD | abcdef |
-;;;
-;;;   글꼴의 크기를 자유롭게 늘리거나 줄일 수 있도록 몇 가지 함수를 제공한다.
-;;; 이 함수를 단추키에 할당하면 유용하게 사용할 수 있다.
-;;;
-;;; (gloalb-set-key (kdb "C-+") fixed-font-increase) ;; 글꼴의 크기를 한단계 늘린다
-;;; (global-set-key (kbd "C--") fixed-font-decrease) ;; 글꼴의 크기를 한단계 줄인다
-;;;
-;;;   다음과 같이 use-package 를 사용하여 설정하는 것도 가능하다.
-;;;
-;;; (use-package fixed-font
-;;;   :load-path "~/.emacs.d/site-lisp"
-;;;   :bind
-;;;   ("C-0" . fixed-font-default)
-;;;   ("C-+" . fxied-font-increase)
-;;;   ("C--" . fixedf-ont-decrease)
-;;;   :custom
-;;;   (fixed-font-hangul-font "NanumGothicCoding")
-;;;   (fixed-font-ascii-font  "Ubuntu Moon")
-;;;   (fixed-font-default-height 100)
-;;;   :init
-;;;   (fixed-font-default))
-;;;
+;;
+;;   글꼴은 글자폭의 형태에 따라 가변폭과 고정폭으로 구분한다.  가변폭의
+;; 경우 글자에 따라 폭(width)이 달라질 수 있다.  예를 들어 "W"와 "I"의
+;; 가로폭(width)이 다르며, 고정폭은 항상 같다.
+;;
+;;   가독성과 정확성을 요구하는 코딩의 글꼴은 고정폭을 사용하는 것이 좋다.
+;; 책이나 게시물을 읽기에는 고정폭 보다 가변폭 글꼴이 좋다고 알려져 있다.
+;; 그러나 가변폭 글꼴의 경우 'o', 'O', '0' 또는  '1', 'i', 'l', 'L' 등의
+;; 구분이 어려워 오타가 발생하기 쉽다.
+;;
+;;   고정폭 영문 글꼴은 'monaco', 'source code pro', casadia code',
+;;  'inconsolata', 'fira code' 등 다양한 글꼴을 선택하여 사용할 수 있다.
+;; 반면에 한글 글꼴은 '나눔고딕코딩, 'D2Coding' 정도로 선태지가 매우
+;; 좁다.
+;;
+;;   한글 글꼴을 사용할 때 영문 글꼴을 다른 것으로 대체 할 수 있다면,
+;; 개인의 취향에 맞는 다양한 조합을 사용할 수 있다.  이 패키지는 한글과
+;; 영문 글꼴을 각각 선택하여 사용할 수 있도록 한다.
+;;
+;; (setq fixed-font-hangul-font "NanumGothicCode") ;; 한글 글꼴 설정
+;; (setq fixed-font-ascii-font "Ubuntu Mono")      ;; 영문 글꼴 설정
+;;
+;;   같은 고정폭 글꼴이라 하더다라고 글꼴마다 고정폭의 기준이 다르다.
+;; 한글과 영문 글꼴을 조합할 경우, 한글 한글자에 영문 두글자가 나오지 않는
+;; 경우가 빈번하다.  이 경우에는 글꼴의 비율(scale)을 조정해 줄 필요가 있다.
+;; 글꼴의 크기에 따라 비율이 다를 수 있기 때문에 각각 지정해야 한다.
+;;
+;; (add-to-list 'fixed-font-rescale-list
+;;   (("NanumGothicCoding" . "Ubuntu Mono")
+;;    ((70  . 1.20)         ;; 글꼴의 크기가 70일때 비율은 1.20
+;;     (80  . 1.30)
+;;     (90  . 1.25)
+;;     (100 . 1.20))))
+;;
+;;   아래와 같은 표를 하나 만들어 보면, 각 글꼴의 비율이 맞는지 틀린지
+;; 보다 쉽게 확인 할 수 있다.
+;;
+;; | 한글 | 테스트 |
+;; | ABCD | abcdef |
+;;
+;;   글꼴의 크기를 자유롭게 늘리거나 줄일 수 있도록 몇 가지 함수를 제공한다.
+;; 이 함수를 단추키에 할당하면 유용하게 사용할 수 있다.
+;;
+;; (gloalb-set-key (kdb "C-+") fixed-font-increase) ;; 글꼴의 크기를 한단계 늘린다
+;; (global-set-key (kbd "C--") fixed-font-decrease) ;; 글꼴의 크기를 한단계 줄인다
+;;
+;;   다음과 같이 use-package 를 사용하여 설정하는 것도 가능하다.
+;;
+;; (use-package fixed-font
+;;   :load-path "~/.emacs.d/site-lisp"
+;;   :bind
+;;   ("C-0" . fixed-font-default)
+;;   ("C-+" . fxied-font-increase)
+;;   ("C--" . fixedf-ont-decrease)
+;;   :custom
+;;   (fixed-font-hangul-font "NanumGothicCoding")
+;;   (fixed-font-ascii-font  "Ubuntu Moon")
+;;   (fixed-font-default-height 100)
+;;   :init
+;;   (fixed-font-default))
+;;
+
 ;;; Code:
-;;;
+
 
 (require 'seq)
 
@@ -199,4 +206,5 @@
     (setq fixed-font-current-height new-height)))
 
 (provide 'fixed-font)
+
 ;;; fixed-font.el ends here
