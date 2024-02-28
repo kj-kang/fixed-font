@@ -10,12 +10,13 @@
 
 이 패키지는 \`Emacs\` 에서 한글에는 한글 글꼴로 이외에는 영문 글꼴로 설정하여, 사용자가 선호하는 글꼴을 조합하여 사용할 수 있도록 한다. 좀 더 쉽게 글꼴의 크기를 조정할 수 있는 단축키를 제공한다.
 
--   [Fixed Font 설치하기](#org76c4f70)
--   [글꼴 설정하기](#orgca65234)
--   [\`use-package\` 를 사용하여 설정하기](#orgafb99e0)
+-   [Fixed Font 설치하기](#org1d3015e)
+-   [글꼴 설정하기](#org13ac781)
+-   [\`use-package\` 를 사용하여 설정하기](#orga251f6c)
+-   [테스트한 글꼴](#org8556ed8)
 
 
-<a id="org76c4f70"></a>
+<a id="org1d3015e"></a>
 
 ## Fixed Font 설치하기
 
@@ -25,7 +26,7 @@
                          (package-vc-install "https://github.com/kj-kang/fixed-font"))
 
 
-<a id="orgca65234"></a>
+<a id="org13ac781"></a>
 
 ## 글꼴 설정하기
 
@@ -49,7 +50,7 @@
       (100 . 1.20) (110 . 1.20) (120 . 1.20)))
 
 
-<a id="orgafb99e0"></a>
+<a id="orga251f6c"></a>
 
 ## \`use-package\` 를 사용하여 설정하기
 
@@ -62,4 +63,25 @@
       (fixed-font-hangul-font "NanumGothicCoding")
       (fixed-font-ascii-font "Source Code Pro")
       (fixed-font-default-height 160))
+
+
+<a id="org8556ed8"></a>
+
+## 테스트한 글꼴
+
+\`나눔고딕코딩\` 글꼴과 함께 테스트한 고정폭 영문 글꼴은 다음과 같다.
+
+-   [Anonymouse Pro](https://www.marksimonson.com/fonts/view/anonymous-pro)
+-   [B612 Mono](https://b612-font.com/)
+-   [Fira Mono](http://mozilla.github.io/Fira/)
+-   [Inconsolata](https://github.com/googlefonts/Inconsolata)
+-   [IBM Plex Mono](https://www.ibm.com/plex/)
+-   [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
+-   [Kode Mono](https://kodemono.com/)
+-   [PT Mono](https://www.paratype.com/fonts/pt/pt-mono)
+-   [Red Hat Mono](https://www.redhat.com/en/about/brand/standards/typography)
+-   [Source Code Pro](https://adobe-fonts.github.io/source-code-pro/)
+-   [Space Mono](https://www.colophon-foundry.org/custom-projects/space-mono)
+-   [Ubuntu Mono](https://design.ubuntu.com/font)
+-   [VT323](https://fonts.google.com/specimen/VT323)
 
